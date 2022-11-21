@@ -4,10 +4,8 @@ const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
-  }
-  body {
-    font-family: 'Gothic A1', sans-serif;
     box-sizing: border-box;
+    font-family: 'Gothic A1', sans-serif;
   }
   li {
     list-style: none;

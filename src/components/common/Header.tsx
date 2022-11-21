@@ -1,3 +1,10 @@
+import { StHeader, StImg, StSpan } from './Header.style';
+
 export default function Header() {
-  return <header className="header">배너영역</header>;
+  return (
+    <StHeader className="header">
+      <StImg src="/logo.png" alt="mainLogo" />
+      <StSpan>Tomato-do</StSpan>
+    </StHeader>
+  );
 }

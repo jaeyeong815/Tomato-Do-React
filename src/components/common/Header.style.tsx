@@ -4,10 +4,12 @@ export const StHeader = styled.header`
   display: flex;
   align-items: center;
 
+  position: sticky;
+  top: 0;
   padding: 0 20px;
-  margin-bottom: 10px;
 
-  box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 0.2);
+  background-color: white;
+  box-shadow: 2px 17px 20px -15px rgba(0, 0, 0, 0.5);
 `;
 
 export const StImg = styled.img`

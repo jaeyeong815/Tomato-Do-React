@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
+import { todoListState } from '../../recoil/todoState';
 import { localStorageFunc } from '../../utils/localStorage';
-import { type Todos } from '../../types/type';
 import TodoItem from './TodoItem';
+import { type Todos } from '../../types/type';
 
 export default function TodoList() {
   const [todo, setTodo] = useState<Todos>({ todo: '', checked: false });
-  const [todos, setTodos] = useState<Todos[]>([]);
+  const [todos, setTodos] = useRecoilState(todoListState);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -18,13 +20,13 @@ export default function TodoList() {
 
   const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (todo.todo.length === 0) {
+      alert('할 일을 작성해주세요.');
+      return;
+    }
 
-    const copyTodos = [...todos];
-    copyTodos.push(todo);
-
-    setTodos(copyTodos);
-    localStorageFunc.setItem('todos', copyTodos);
-
+    setTodos((prev) => [...prev, todo]);
+    localStorageFunc.setItem('todos', todos);
     setTodo({ todo: '', checked: false });
   };
 
@@ -48,7 +50,7 @@ export default function TodoList() {
         />
         <StSubmitBtn type="submit">등록</StSubmitBtn>
       </StInputWrapper>
-      <TodoItem todos={todos} />
+      <TodoItem />
     </TodoListWrapper>
   );
 }

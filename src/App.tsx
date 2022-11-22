@@ -1,3 +1,4 @@
+import { RecoilRoot } from 'recoil';
 import GlobalStyle from './styles/GlobalStyles';
 import Header from './components/common/Header';
 import Main from './pages/Main';
@@ -7,7 +8,9 @@ function App() {
     <div className="App">
       <GlobalStyle />
       <Header />
-      <Main />
+      <RecoilRoot>
+        <Main />
+      </RecoilRoot>
     </div>
   );
 }

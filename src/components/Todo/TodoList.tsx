@@ -15,6 +15,16 @@ export default function TodoList() {
     });
   };
 
+  const onCheckedHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, checked } = e.target;
+    const checkedIndex = parseInt(id);
+
+    todos.forEach((todo, index) => {
+      if (index === checkedIndex) todo.checked = checked;
+    });
+    localStorageFunc.setItem('todos', todos);
+  };
+
   const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,7 +61,11 @@ export default function TodoList() {
         {todos &&
           todos.map((todo, idx) => (
             <StList key={idx}>
-              <StCheckbox type="checkbox" id={String(idx)} />
+              <StCheckbox
+                type="checkbox"
+                id={String(idx)}
+                onChange={onCheckedHandle}
+              />
               <label htmlFor={String(idx)}>{todo.todo}</label>
             </StList>
           ))}

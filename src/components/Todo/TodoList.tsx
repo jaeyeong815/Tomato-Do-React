@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { localStorageFunc } from '../../utils/localStorage';
 import { type Todos } from '../../types/type';
+import TodoItem from './TodoItem';
 
 export default function TodoList() {
   const [todo, setTodo] = useState<Todos>({ todo: '', checked: false });
@@ -13,16 +14,6 @@ export default function TodoList() {
       ...todo,
       [name]: value,
     });
-  };
-
-  const onCheckedHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, checked } = e.target;
-    const checkedIndex = parseInt(id);
-
-    todos.forEach((todo, index) => {
-      if (index === checkedIndex) todo.checked = checked;
-    });
-    localStorageFunc.setItem('todos', todos);
   };
 
   const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,19 +48,7 @@ export default function TodoList() {
         />
         <StSubmitBtn type="submit">등록</StSubmitBtn>
       </StInputWrapper>
-      <ul>
-        {todos &&
-          todos.map((todo, idx) => (
-            <StList key={idx}>
-              <StCheckbox
-                type="checkbox"
-                id={String(idx)}
-                onChange={onCheckedHandle}
-              />
-              <label htmlFor={String(idx)}>{todo.todo}</label>
-            </StList>
-          ))}
-      </ul>
+      <TodoItem todos={todos} />
     </TodoListWrapper>
   );
 }
@@ -117,33 +96,4 @@ const StSubmitBtn = styled.button`
   border-radius: 5px;
 
   word-break: keep-all;
-`;
-
-const StList = styled.li`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-
-  label {
-    cursor: pointer;
-  }
-`;
-
-const StCheckbox = styled.input`
-  appearance: none;
-  border: grey 2px solid;
-  border-radius: 5px;
-  padding: 10px 10px;
-  margin-right: 10px;
-
-  cursor: pointer;
-
-  &:checked {
-    border-color: transparent;
-    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M5.707 7.293a1 1 0 0 0-1.414 1.414l2 2a1 1 0 0 0 1.414 0l4-4a1 1 0 0 0-1.414-1.414L7 8.586 5.707 7.293z'/%3e%3c/svg%3e");
-    background-size: 100% 100%;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-color: limegreen;
-  }
 `;

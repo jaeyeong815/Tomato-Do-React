@@ -2,7 +2,12 @@ import styled from 'styled-components';
 import { localStorageFunc } from '../../utils/localStorage';
 import { type Todos } from '../../types/type';
 
-export default function TodoItem({ todos }: { todos: Todos[] }) {
+import { useRecoilState } from 'recoil';
+import { todoListState } from '../../recoil/todoState';
+
+export default function TodoItem() {
+  const [todos, setTodos] = useRecoilState(todoListState);
+
   const onCheckedHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target;
     const checkedIndex = parseInt(id);
@@ -11,6 +16,17 @@ export default function TodoItem({ todos }: { todos: Todos[] }) {
       if (index === checkedIndex) todo.checked = checked;
     });
     localStorageFunc.setItem('todos', todos);
+  };
+
+  const todoDeleteHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const deleteTodoIndex = parseInt(e.currentTarget.id);
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      const filteringTodos = todos.filter(
+        (_, index) => index !== deleteTodoIndex
+      );
+      setTodos(filteringTodos);
+      localStorageFunc.setItem('todos', filteringTodos);
+    }
   };
 
   return (
@@ -28,7 +44,13 @@ export default function TodoItem({ todos }: { todos: Todos[] }) {
             </div>
             <div className="button">
               <StSubmitBtn>수정</StSubmitBtn>
-              <StSubmitBtn>삭제</StSubmitBtn>
+              <StSubmitBtn
+                type="button"
+                id={String(idx)}
+                onClick={todoDeleteHandle}
+              >
+                삭제
+              </StSubmitBtn>
             </div>
           </StList>
         ))}

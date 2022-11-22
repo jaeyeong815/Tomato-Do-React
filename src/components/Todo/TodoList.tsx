@@ -1,26 +1,60 @@
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { localStorageFunc } from '../../utils/localStorage';
+import { type Todos } from '../../types/type';
 
 export default function TodoList() {
+  const [todo, setTodo] = useState<Todos>({ todo: '', checked: false });
+  const [todos, setTodos] = useState<Todos[]>([]);
+
+  const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTodo({
+      ...todo,
+      [name]: value,
+    });
+  };
+
+  const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const copyTodos = [...todos];
+    copyTodos.push(todo);
+
+    setTodos(copyTodos);
+    localStorageFunc.setItem('todos', copyTodos);
+
+    setTodo({ todo: '', checked: false });
+  };
+
+  useEffect(() => {
+    const todoList = localStorageFunc.getItem('todos');
+    if (typeof todoList === 'object') {
+      setTodos(todoList);
+    }
+  }, []);
+
   return (
     <TodoListWrapper>
       <StTitle>할 일 목록</StTitle>
-      <StInputWrapper>
-        <StInput type="text" placeholder="할 일을 입력해주세요." />
-        <StSubmitBtn type="submit" value="등록" />
+      <StInputWrapper onSubmit={onSubmitHandle}>
+        <StInput
+          type="text"
+          placeholder="할 일을 입력해주세요."
+          name="todo"
+          value={todo?.todo}
+          onChange={onChangeHandle}
+        />
+        <StSubmitBtn type="submit">등록</StSubmitBtn>
       </StInputWrapper>
       <ul>
-        <StList>
-          <StCheckbox type="checkbox" id="todo_1" />
-          <label htmlFor="todo_1">자바스크립트 공부</label>
-        </StList>
-        <StList>
-          <StCheckbox type="checkbox" id="todo_2" />
-          <label htmlFor="todo_2">리액트 공부</label>
-        </StList>
-        <StList>
-          <StCheckbox type="checkbox" id="todo_3" />
-          <label htmlFor="todo_3">타입스크립트 공부</label>
-        </StList>
+        {todos &&
+          todos.map((todo, idx) => (
+            <StList key={idx}>
+              <StCheckbox type="checkbox" id={String(idx)} />
+              <label htmlFor={String(idx)}>{todo.todo}</label>
+            </StList>
+          ))}
       </ul>
     </TodoListWrapper>
   );
@@ -37,12 +71,13 @@ const TodoListWrapper = styled.div`
 
 const StTitle = styled.p`
   font-size: 30px;
-  font-weight: 500;
+  font-weight: 800;
+  color: #3aa694;
 
   margin-bottom: 10px;
 `;
 
-const StInputWrapper = styled.div`
+const StInputWrapper = styled.form`
   display: flex;
   align-items: center;
 
@@ -52,6 +87,7 @@ const StInputWrapper = styled.div`
 const StInput = styled.input`
   border: none;
   border-bottom: 2px solid grey;
+  outline: none;
 
   margin-right: 10px;
   padding: 5px 5px;
@@ -61,10 +97,12 @@ const StInput = styled.input`
   font-size: 20px;
 `;
 
-const StSubmitBtn = styled.input`
+const StSubmitBtn = styled.button`
   padding: 10px 10px;
   border: none;
   border-radius: 5px;
+
+  word-break: keep-all;
 `;
 
 const StList = styled.li`

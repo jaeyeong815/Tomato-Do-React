@@ -50,7 +50,11 @@ export default function TodoList() {
         />
         <StSubmitBtn type="submit">등록</StSubmitBtn>
       </StInputWrapper>
-      <TodoItem />
+      {todos.length !== 0 ? (
+        <TodoItem />
+      ) : (
+        <StSpan>등록된 To-do가 없습니다!</StSpan>
+      )}
     </TodoListWrapper>
   );
 }
@@ -98,4 +102,13 @@ const StSubmitBtn = styled.button`
   border-radius: 5px;
 
   word-break: keep-all;
+`;
+
+const StSpan = styled.span`
+  font-size: 20px;
+  font-weight: 500;
+  color: white;
+  background-color: #3aa694;
+
+  padding: 5px 5px;
 `;

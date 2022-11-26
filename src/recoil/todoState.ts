@@ -3,7 +3,7 @@ import { recoilPersist } from 'recoil-persist';
 import { Todos } from '../types/type';
 
 const { persistAtom } = recoilPersist({
-  key: 'todoList',
+  key: 'recoil-persist',
   storage: localStorage,
 });
 

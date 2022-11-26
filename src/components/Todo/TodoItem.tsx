@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { localStorageFunc } from '../../utils/localStorage';
-import { type Todos } from '../../types/type';
-
 import { useRecoilState } from 'recoil';
 import { todoListState } from '../../recoil/todoState';
+import { localStorageFunc } from '../../utils/localStorage';
+import { useEffect } from 'react';
 
 export default function TodoItem() {
   const [todos, setTodos] = useRecoilState(todoListState);
@@ -12,20 +11,24 @@ export default function TodoItem() {
     const { id, checked } = e.target;
     const checkedIndex = parseInt(id);
 
-    todos.forEach((todo, index) => {
-      if (index === checkedIndex) todo.checked = checked;
+    const updatedCheckedTodos = todos.map((todo, index) => {
+      if (index === checkedIndex) {
+        return { ...todo, checked: checked };
+      }
+      return { ...todo };
     });
-    localStorageFunc.setItem('todos', todos);
+    setTodos(updatedCheckedTodos);
+    localStorageFunc.setItem('todos', updatedCheckedTodos);
   };
 
   const todoDeleteHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const deleteTodoIndex = parseInt(e.currentTarget.id);
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      const filteringTodos = todos.filter(
+      const deletedTodos = todos.filter(
         (_, index) => index !== deleteTodoIndex
       );
-      setTodos(filteringTodos);
-      localStorageFunc.setItem('todos', filteringTodos);
+      setTodos(deletedTodos);
+      localStorageFunc.setItem('todos', deletedTodos);
     }
   };
 
@@ -38,6 +41,7 @@ export default function TodoItem() {
               <StCheckbox
                 type="checkbox"
                 id={String(idx)}
+                checked={todo.checked}
                 onChange={onCheckedHandle}
               />
               <label htmlFor={String(idx)}>{todo.todo}</label>

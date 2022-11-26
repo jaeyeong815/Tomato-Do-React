@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { todoListState, toDoState } from '../../recoil/todoState';
+import { todoListState } from '../../recoil/todoState';
 import { localStorageFunc } from '../../utils/localStorage';
 import TodoItem from './TodoItem';
 import { type Todos } from '../../types/type';
 
 export default function TodoList() {
   const [todo, setTodo] = useState<Todos>({ todo: '', checked: false });
-  const [todos, setTodos] = useRecoilState(toDoState);
+  const [todos, setTodos] = useRecoilState(todoListState);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -26,16 +26,12 @@ export default function TodoList() {
     }
 
     setTodos((prev) => [...prev, todo]);
-    localStorageFunc.setItem('todos', todos);
     setTodo({ todo: '', checked: false });
   };
 
   useEffect(() => {
-    const todoList = localStorageFunc.getItem('todos');
-    if (todoList && typeof todoList === 'object') {
-      setTodos(todoList);
-    }
-  }, []);
+    localStorageFunc.setItem('todos', todos);
+  }, [todos]);
 
   return (
     <TodoListWrapper>

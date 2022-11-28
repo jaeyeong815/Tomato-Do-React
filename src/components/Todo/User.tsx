@@ -19,7 +19,7 @@ export default function User() {
 
   useEffect(() => {
     const userData = localStorageFunc.getItem('name');
-    if (userData) {
+    if (userData && typeof userData === 'string') {
       setUserName(userData);
       return;
     }
@@ -50,7 +50,6 @@ export default function User() {
 const UserWrapper = styled.div`
   display: flex;
   align-items: center;
-
   margin: 20px 0;
 `;
 const StImg = styled.div`
@@ -66,6 +65,7 @@ const StImg = styled.div`
 const StSpan = styled.span`
   font-size: 25px;
   font-weight: 500;
+  background-color: #3aa694;
 `;
 
 const StInput = styled.input`

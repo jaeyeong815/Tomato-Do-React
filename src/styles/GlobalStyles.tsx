@@ -19,10 +19,15 @@ const GlobalStyle = createGlobalStyle`
 
   .header {
     height: 80px;
+    min-width: 700px;
   }
   .main {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2,700px);
+    justify-content: center;
+    @media (max-width: 1370px) {
+      grid-template-columns: repeat(1,700px);
+    }
 
     min-height: 100vh;
   }

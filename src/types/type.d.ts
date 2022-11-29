@@ -1,4 +1,4 @@
 export interface Todos {
-  todo: string;
+  content: string;
   checked: boolean;
 }

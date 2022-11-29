@@ -22,6 +22,6 @@ export const editTodoItemState = atom<{
   default: {
     isEditing: false,
     editIndex: null,
-    todo: { todo: '', checked: false },
+    todo: { content: '', checked: false },
   },
 });

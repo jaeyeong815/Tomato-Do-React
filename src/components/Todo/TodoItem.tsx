@@ -56,7 +56,7 @@ export default function TodoItem() {
                 checked={todo.checked}
                 onChange={onCheckedHandle}
               />
-              <label htmlFor={String(idx)}>{todo.todo}</label>
+              <label htmlFor={String(idx)}>{todo.content}</label>
             </div>
             <div className="button">
               <StSubmitBtn

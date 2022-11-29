@@ -7,7 +7,7 @@ import TodoItem from './TodoItem';
 import { type Todos } from '../../types/type';
 
 export default function TodoList() {
-  const [todo, setTodo] = useState<Todos>({ todo: '', checked: false });
+  const [todo, setTodo] = useState<Todos>({ content: '', checked: false });
   const [todos, setTodos] = useRecoilState(todoListState);
 
   const onChangeHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,13 +20,13 @@ export default function TodoList() {
 
   const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (todo.todo.length === 0) {
+    if (todo.content.length === 0) {
       alert('할 일을 작성해주세요.');
       return;
     }
 
     setTodos((prev) => [...prev, todo]);
-    setTodo({ todo: '', checked: false });
+    setTodo({ content: '', checked: false });
   };
 
   useEffect(() => {
@@ -40,8 +40,8 @@ export default function TodoList() {
         <StInput
           type="text"
           placeholder="할 일을 입력해주세요."
-          name="todo"
-          value={todo?.todo}
+          name="content"
+          value={todo?.content}
           onChange={onChangeHandle}
         />
         <StSubmitBtn type="submit">등록</StSubmitBtn>

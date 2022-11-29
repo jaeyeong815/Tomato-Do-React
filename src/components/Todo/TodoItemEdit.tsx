@@ -19,7 +19,7 @@ function TodoItemEdit() {
     }
     const editTodos = todos.map((todo, index) => {
       if (index === editTodoItem.editIndex) {
-        return { ...todo, todo: editTodoText };
+        return { ...todo, content: editTodoText };
       }
       return { ...todo };
     });
@@ -28,7 +28,7 @@ function TodoItemEdit() {
     setEditTodoItem({
       isEditing: false,
       editIndex: null,
-      todo: { todo: '', checked: false },
+      todo: { content: '', checked: false },
     });
   };
 
@@ -36,7 +36,7 @@ function TodoItemEdit() {
     setEditTodoItem({
       isEditing: false,
       editIndex: null,
-      todo: { todo: '', checked: false },
+      todo: { content: '', checked: false },
     });
   };
 
@@ -44,7 +44,7 @@ function TodoItemEdit() {
     <TodoItemEditWrapper>
       <StInput
         type="text"
-        placeholder={editTodoItem.todo?.todo}
+        placeholder={editTodoItem.todo?.content}
         value={editTodoText}
         onChange={onChangeHandle}
       />

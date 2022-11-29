@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import { todoListState } from '../../recoil/todoState';
+import { todoListState, editTodoItemState } from '../../recoil/todoState';
+import TodoItemEdit from './TodoItemEdit';
 import { localStorageFunc } from '../../utils/localStorage';
-import { useEffect } from 'react';
 
 export default function TodoItem() {
   const [todos, setTodos] = useRecoilState(todoListState);
+  const [editTodoItem, setEditTodoItem] = useRecoilState(editTodoItemState);
 
   const onCheckedHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, checked } = e.target;
@@ -21,6 +22,15 @@ export default function TodoItem() {
     localStorageFunc.setItem('todos', updatedCheckedTodos);
   };
 
+  const todoEditHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const editTodoIndex = parseInt(e.currentTarget.id);
+    setEditTodoItem({
+      isEditing: true,
+      editIndex: editTodoIndex,
+      todo: todos[editTodoIndex],
+    });
+  };
+
   const todoDeleteHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const deleteTodoIndex = parseInt(e.currentTarget.id);
     if (window.confirm('정말 삭제하시겠습니까?')) {
@@ -32,7 +42,9 @@ export default function TodoItem() {
     }
   };
 
-  return (
+  return editTodoItem.isEditing ? (
+    <TodoItemEdit />
+  ) : (
     <ul>
       {todos &&
         todos.map((todo, idx) => (
@@ -47,7 +59,13 @@ export default function TodoItem() {
               <label htmlFor={String(idx)}>{todo.todo}</label>
             </div>
             <div className="button">
-              <StSubmitBtn>수정</StSubmitBtn>
+              <StSubmitBtn
+                type="button"
+                id={String(idx)}
+                onClick={todoEditHandle}
+              >
+                수정
+              </StSubmitBtn>
               <StSubmitBtn
                 type="button"
                 id={String(idx)}

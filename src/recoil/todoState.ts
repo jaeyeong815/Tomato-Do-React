@@ -12,3 +12,16 @@ export const todoListState = atom<Todos[]>({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const editTodoItemState = atom<{
+  isEditing: boolean;
+  editIndex: null | number;
+  todo: Todos | null;
+}>({
+  key: 'editTodoItemState',
+  default: {
+    isEditing: false,
+    editIndex: null,
+    todo: { todo: '', checked: false },
+  },
+});

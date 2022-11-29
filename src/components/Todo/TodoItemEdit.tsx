@@ -51,6 +51,7 @@ function TodoItemEdit() {
       <div className="button">
         <StSubmitBtn
           type="button"
+          bgColor="edit"
           id={String(editTodoItem.editIndex)}
           onClick={todoEditHandle}
         >
@@ -58,6 +59,7 @@ function TodoItemEdit() {
         </StSubmitBtn>
         <StSubmitBtn
           type="button"
+          bgColor="cancel"
           id={String(editTodoItem.editIndex)}
           onClick={editCancleHandle}
         >
@@ -87,11 +89,14 @@ const StInput = styled.input`
   font-size: 20px;
 `;
 
-const StSubmitBtn = styled.button`
+const StSubmitBtn = styled.button<{ bgColor: string }>`
   padding: 10px 10px;
   margin-left: 5px;
   border: none;
   border-radius: 5px;
 
+  background-color: ${(prop) =>
+    prop.bgColor === 'edit' ? '#ffae00' : '#424242'};
+  color: white;
   word-break: keep-all;
 `;

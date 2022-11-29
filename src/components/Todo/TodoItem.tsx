@@ -61,6 +61,7 @@ export default function TodoItem() {
             <div className="button">
               <StSubmitBtn
                 type="button"
+                bgColor="edit"
                 id={String(idx)}
                 onClick={todoEditHandle}
               >
@@ -68,6 +69,7 @@ export default function TodoItem() {
               </StSubmitBtn>
               <StSubmitBtn
                 type="button"
+                bgColor="del"
                 id={String(idx)}
                 onClick={todoDeleteHandle}
               >
@@ -119,10 +121,13 @@ const StCheckbox = styled.input`
   }
 `;
 
-const StSubmitBtn = styled.button`
+const StSubmitBtn = styled.button<{ bgColor: string }>`
   padding: 10px 10px;
   border: none;
   border-radius: 5px;
 
+  background-color: ${(prop) =>
+    prop.bgColor === 'edit' ? '#ffae00' : '#EB6440'};
+  color: white;
   word-break: keep-all;
 `;

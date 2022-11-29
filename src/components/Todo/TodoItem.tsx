@@ -42,45 +42,68 @@ export default function TodoItem() {
     }
   };
 
+  const allTodoDeleteHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (window.confirm('정말 모든 할 일을 삭제하시겠습니까?')) {
+      setTodos([]);
+      localStorageFunc.clear;
+    }
+  };
+
   return editTodoItem.isEditing ? (
     <TodoItemEdit />
   ) : (
-    <ul>
-      {todos &&
-        todos.map((todo, idx) => (
-          <StList key={idx}>
-            <div className="input">
-              <StCheckbox
-                type="checkbox"
-                id={String(idx)}
-                checked={todo.checked}
-                onChange={onCheckedHandle}
-              />
-              <label htmlFor={String(idx)}>{todo.content}</label>
-            </div>
-            <div className="button">
-              <StSubmitBtn
-                type="button"
-                bgColor="edit"
-                id={String(idx)}
-                onClick={todoEditHandle}
-              >
-                수정
-              </StSubmitBtn>
-              <StSubmitBtn
-                type="button"
-                bgColor="del"
-                id={String(idx)}
-                onClick={todoDeleteHandle}
-              >
-                삭제
-              </StSubmitBtn>
-            </div>
-          </StList>
-        ))}
-    </ul>
+    <TodoItemWrapper>
+      <ul>
+        {todos &&
+          todos.map((todo, idx) => (
+            <StList key={idx}>
+              <div className="input">
+                <StCheckbox
+                  type="checkbox"
+                  id={String(idx)}
+                  checked={todo.checked}
+                  onChange={onCheckedHandle}
+                />
+                <label htmlFor={String(idx)}>{todo.content}</label>
+              </div>
+              <div className="button">
+                <StSubmitBtn
+                  type="button"
+                  bgColor="edit"
+                  id={String(idx)}
+                  onClick={todoEditHandle}
+                >
+                  수정
+                </StSubmitBtn>
+                <StSubmitBtn
+                  type="button"
+                  bgColor="del"
+                  id={String(idx)}
+                  onClick={todoDeleteHandle}
+                >
+                  삭제
+                </StSubmitBtn>
+              </div>
+            </StList>
+          ))}
+      </ul>
+      {todos.length > 1 && (
+        <StSubmitBtn type="button" bgColor="del" onClick={allTodoDeleteHandle}>
+          전체 삭제
+        </StSubmitBtn>
+      )}
+    </TodoItemWrapper>
   );
 }
+
+const TodoItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  > button {
+    width: fit-content;
+    margin-top: 10px;
+  }
+`;
 
 const StList = styled.li`
   display: flex;

@@ -11,4 +11,7 @@ export const localStorageFunc = {
     }
     return null;
   },
+  clear: () => {
+    localStorage.clear;
+  },
 };

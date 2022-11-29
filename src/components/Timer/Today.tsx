@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 
 export default function Today() {
-  return <TodayWrapper>오늘은 2022년 00월 00일</TodayWrapper>;
+  const todayDate = new Intl.DateTimeFormat('ko', {
+    dateStyle: 'full',
+  }).format(new Date());
+
+  return <TodayWrapper>오늘은 {todayDate}</TodayWrapper>;
 }
 
 const TodayWrapper = styled.div`

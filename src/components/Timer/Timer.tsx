@@ -1,7 +1,34 @@
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { focusTimerState, restTimerState } from '../../recoil/timerState';
 import styled from 'styled-components';
 import Today from './Today';
+import TimerTimeSet from './TimerTimeSet';
+import { timerFormatting } from '../../utils/timerFormatting';
 
 export default function Timer() {
+  const focusTime = useRecoilValue(focusTimerState);
+  const restTime = useRecoilValue(restTimerState);
+  const [focusTimeFormat, setFocusTimeFormat] = useState<{
+    min: string;
+    sec: string;
+  }>({
+    min: '25',
+    sec: '00',
+  });
+  const [restTimeFormat, setRestTimeFormat] = useState<{
+    min: string;
+    sec: string;
+  }>({
+    min: '05',
+    sec: '00',
+  });
+
+  useEffect(() => {
+    setFocusTimeFormat(timerFormatting(focusTime));
+    setRestTimeFormat(timerFormatting(restTime));
+  }, [focusTime]);
+
   return (
     <TimerWrapper>
       <Today />
@@ -15,18 +42,19 @@ export default function Timer() {
       />
       <ClockWrapper>
         <MinuteWrapper>
-          <p>25:00</p>
+          <p>
+            {focusTimeFormat.min}:{focusTimeFormat.sec}
+          </p>
           <span>집중시간</span>
         </MinuteWrapper>
         <MinuteWrapper>
-          <p>05:00</p>
+          <p>
+            {restTimeFormat.min}:{restTimeFormat.sec}
+          </p>
           <span>휴식시간</span>
         </MinuteWrapper>
       </ClockWrapper>
-      <TimeSetWrapper>
-        <TimeSetBtn>25분 - 5분</TimeSetBtn>
-        <TimeSetBtn>50분 - 10분</TimeSetBtn>
-      </TimeSetWrapper>
+      <TimerTimeSet />
       <ProgressBtn>시작하기</ProgressBtn>
     </TimerWrapper>
   );
@@ -60,24 +88,6 @@ const MinuteWrapper = styled.div`
     font-size: 50px;
     font-weight: 800;
   }
-`;
-
-const TimeSetWrapper = styled.div`
-  display: flex;
-  column-gap: 20px;
-
-  margin-bottom: 30px;
-`;
-
-const TimeSetBtn = styled.button`
-  border: none;
-  border-radius: 5px;
-  padding: 10px 10px;
-
-  font-size: 20px;
-
-  color: white;
-  background-color: grey;
 `;
 
 const ProgressBtn = styled.button`

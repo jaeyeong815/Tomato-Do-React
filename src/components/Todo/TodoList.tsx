@@ -75,6 +75,7 @@ const StTitle = styled.p`
 const StInputWrapper = styled.form`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   margin-bottom: 50px;
 `;
@@ -93,11 +94,16 @@ const StInput = styled.input`
 `;
 
 const StSubmitBtn = styled.button`
+  flex-grow: 1;
   padding: 10px 10px;
   border: none;
   border-radius: 5px;
 
   word-break: keep-all;
+  :hover {
+    color: white;
+    background-color: #3aa694;
+  }
 `;
 
 const StSpan = styled.span`

@@ -1,6 +1,9 @@
-import { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
-import { focusTimerState, restTimerState } from '../../recoil/timerState';
+import { useSetRecoilState, useRecoilState } from 'recoil';
+import {
+  focusTimerState,
+  restTimerState,
+  timerTimeState,
+} from '../../recoil/timerState';
 import styled from 'styled-components';
 
 enum FocusTime {
@@ -11,10 +14,7 @@ enum FocusTime {
 function FocusTimeSet() {
   const setFocusTime = useSetRecoilState(focusTimerState);
   const setRestTime = useSetRecoilState(restTimerState);
-  const [clickedBtn, setClickedBtn] = useState({
-    twentyFive: true,
-    fifty: false,
-  });
+  const [clickedBtn, setClickedBtn] = useRecoilState(timerTimeState);
 
   const focusTimeHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;

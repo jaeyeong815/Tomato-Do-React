@@ -8,12 +8,6 @@ import {
 import { useEffect, useState } from 'react';
 import { timeInfo } from '../../utils/timerTime';
 
-enum TimerState {
-  start = '진행중',
-  stop = '중단',
-  reset = '초기화',
-}
-
 function TimerProgress() {
   const [timerIng, setTimerIng] = useState(false);
   const timerTime = useRecoilValue(timerTimeState);
@@ -50,12 +44,8 @@ function TimerProgress() {
     }, []);
     return (
       <BtnWrapper>
-        <ProgressBtn name={TimerState.stop} onClick={timerPauseHandle}>
-          일시정지
-        </ProgressBtn>
-        <ProgressBtn name={TimerState.reset} onClick={timerResetHandle}>
-          처음으로
-        </ProgressBtn>
+        <ProgressBtn onClick={timerPauseHandle}>일시정지</ProgressBtn>
+        <ProgressBtn onClick={timerResetHandle}>처음으로</ProgressBtn>
       </BtnWrapper>
     );
   }
@@ -65,9 +55,7 @@ function TimerProgress() {
       {timerIng ? (
         <Timer />
       ) : (
-        <ProgressBtn name={TimerState.start} onClick={timerStartHandle}>
-          시작하기
-        </ProgressBtn>
+        <ProgressBtn onClick={timerStartHandle}>시작하기</ProgressBtn>
       )}
     </>
   );

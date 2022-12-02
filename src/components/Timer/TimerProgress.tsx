@@ -30,7 +30,7 @@ function TimerProgress() {
       return;
     }
     setFocusTime(timeInfo.fifty.focusTime);
-    setRestTime(timeInfo.twentyFive.restTime);
+    setRestTime(timeInfo.fifty.restTime);
   };
 
   function Timer() {

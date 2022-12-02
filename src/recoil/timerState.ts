@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { timeInfo } from '../utils/timerTime';
 
 export const timerTimeState = atom({
   key: 'timerTimeState',
@@ -10,10 +11,10 @@ export const timerTimeState = atom({
 
 export const focusTimerState = atom({
   key: 'focusTimerState',
-  default: 1500,
+  default: timeInfo.twentyFive.focusTime,
 });
 
 export const restTimerState = atom({
   key: 'restTimerState',
-  default: 300,
+  default: timeInfo.twentyFive.restTime,
 });

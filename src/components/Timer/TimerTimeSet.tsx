@@ -4,6 +4,7 @@ import {
   restTimerState,
   timerTimeState,
 } from '../../recoil/timerState';
+import { timeInfo } from '../../utils/timerTime';
 import styled from 'styled-components';
 
 enum FocusTime {
@@ -19,13 +20,13 @@ function FocusTimeSet() {
   const focusTimeHandle = (e: React.MouseEvent<HTMLButtonElement>) => {
     const { name } = e.currentTarget;
     if (name === FocusTime.twentyFive) {
-      setFocusTime(1500);
-      setRestTime(300);
+      setFocusTime(timeInfo.twentyFive.focusTime);
+      setRestTime(timeInfo.twentyFive.restTime);
       setClickedBtn({ twentyFive: true, fifty: false });
       return;
     }
-    setFocusTime(3000);
-    setRestTime(600);
+    setFocusTime(timeInfo.fifty.focusTime);
+    setRestTime(timeInfo.fifty.restTime);
     setClickedBtn({ twentyFive: false, fifty: true });
   };
 

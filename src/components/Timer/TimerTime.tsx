@@ -24,7 +24,7 @@ function TimerTime() {
   useEffect(() => {
     setFocusTimeFormat(timerFormatting(focusTime));
     setRestTimeFormat(timerFormatting(restTime));
-  }, [focusTime]);
+  }, [focusTime, restTime]);
   return (
     <ClockWrapper>
       <MinuteWrapper>

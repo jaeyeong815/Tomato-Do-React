@@ -1,18 +1,19 @@
-import styled from 'styled-components';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useEffect, useState } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
   focusTimerState,
   restTimerState,
   timerTimeState,
 } from '../../recoil/timerState';
-import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { timeInfo } from '../../utils/timerTime';
+import { timeCheckAndSet } from '../../utils/timeCheckAndSet';
 
 function TimerProgress() {
   const [timerIng, setTimerIng] = useState(false);
   const timerTime = useRecoilValue(timerTimeState);
-  const setFocusTime = useSetRecoilState(focusTimerState);
-  const setRestTime = useSetRecoilState(restTimerState);
+  const [focusTime, setFocusTime] = useRecoilState(focusTimerState);
+  const [restTime, setRestTime] = useRecoilState(restTimerState);
 
   const timerStartHandle = () => {
     setTimerIng(true);
@@ -24,19 +25,22 @@ function TimerProgress() {
 
   const timerResetHandle = () => {
     setTimerIng(false);
-    if (timerTime.twentyFive) {
-      setFocusTime(timeInfo.twentyFive.focusTime);
-      setRestTime(timeInfo.twentyFive.restTime);
-      return;
-    }
-    setFocusTime(timeInfo.fifty.focusTime);
-    setRestTime(timeInfo.fifty.restTime);
+    timeCheckAndSet(timerTime, timeInfo, setFocusTime, setRestTime);
   };
 
   function Timer() {
     useEffect(() => {
       const timer = setInterval(() => {
-        setFocusTime((prev) => (prev -= 1));
+        if (focusTime !== 0) {
+          setFocusTime((prev) => (prev -= 1));
+        }
+        if (focusTime === 0 && restTime !== 0) {
+          setRestTime((prev) => (prev -= 1));
+        }
+        if (restTime === 0) {
+          setTimerIng(false);
+          timeCheckAndSet(timerTime, timeInfo, setFocusTime, setRestTime);
+        }
       }, 1000);
       return () => {
         clearInterval(timer);

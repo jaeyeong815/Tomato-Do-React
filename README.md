@@ -2,7 +2,25 @@
 
 Vanilla JS로 개발했던 투두리스트+뽀모도로 타이머 프로젝트를 React+TS로 개선하였습니다.
 
-## 해야할 일
+## ⚒️ 기술 스택
+<div align=center>
+<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
+<img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white">
+<img src="https://img.shields.io/badge/Recoil-3578e5?style=for-the-badge&logo=Revolut&logoColor=white">
+<img src="https://img.shields.io/badge/styled_components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white">
+</div>
+
+## 🌎 프로젝트 실행 방법
+1. package 설치
+```
+npm install
+```
+2. 프로젝트 실행
+```
+npm run dev
+```
+
+## 📝 해야할 일
 
 - [ ] 배너 레이아웃
   - [x] 로고

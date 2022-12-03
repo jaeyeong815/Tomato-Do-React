@@ -28,7 +28,10 @@ const GlobalStyle = createGlobalStyle`
     @media (max-width: 1370px) {
       grid-template-columns: repeat(1,700px);
     }
+  }
 
+  .main >div {
+    padding-bottom: 50px;
     min-height: 100vh;
   }
 `;

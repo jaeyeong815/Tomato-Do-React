@@ -23,3 +23,13 @@ export const StSpan = styled.span`
   font-weight: 800;
   font-size: 30px;
 `;
+
+export const StHelp = styled.div`
+  position: relative;
+`;
+
+export const StTogleWrapper = styled.div`
+  position: absolute;
+`;
+
+export const StTogle = styled.div``;

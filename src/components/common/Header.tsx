@@ -16,10 +16,12 @@ export default function Header() {
   };
   return (
     <StHeader className="header">
-      <StImg src="/logo.png" alt="mainLogo" />
-      <StSpan>Tomato-do</StSpan>
-      <StHelp className="help_temp" onClick={togleHandle}>
-        도움말
+      <div className="headerLeft">
+        <StImg src="/logo.png" alt="mainLogo" />
+        <StSpan>Tomato-do</StSpan>
+      </div>
+      <StHelp className="helpRight" onClick={togleHandle}>
+        <p>{togle ? '닫기' : '도움말'}</p>
         <StTogleWrapper>{togle && <Help />}</StTogleWrapper>
       </StHelp>
     </StHeader>

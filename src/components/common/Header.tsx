@@ -4,15 +4,14 @@ import {
   StImg,
   StSpan,
   StHelp,
-  StTogle,
   StTogleWrapper,
 } from './Header.style';
 import Help from './Help';
 
 export default function Header() {
-  const [togle, setTogle] = useState(false);
+  const [isTogle, setIsTogle] = useState(false);
   const togleHandle = () => {
-    setTogle((prev) => !prev);
+    setIsTogle((prevToggle) => !prevToggle);
   };
   return (
     <StHeader className="header">
@@ -21,8 +20,8 @@ export default function Header() {
         <StSpan>Tomato-do</StSpan>
       </div>
       <StHelp className="helpRight" onClick={togleHandle}>
-        <p>{togle ? '닫기' : '도움말'}</p>
-        <StTogleWrapper>{togle && <Help />}</StTogleWrapper>
+        <p>{isTogle ? '닫기' : '도움말'}</p>
+        <StTogleWrapper>{isTogle && <Help />}</StTogleWrapper>
       </StHelp>
     </StHeader>
   );

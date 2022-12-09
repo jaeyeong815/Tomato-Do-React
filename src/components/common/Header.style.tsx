@@ -33,12 +33,6 @@ export const StTogleWrapper = styled.div`
   position: absolute;
   right: 20px;
 
-  width: 300px;
+  width: 450px;
   margin-top: 10px;
-`;
-
-export const StTogle = styled.div`
-  padding: 20px 30px;
-  background-color: beige;
-  border-radius: 5px;
 `;

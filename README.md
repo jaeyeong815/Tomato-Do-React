@@ -3,6 +3,7 @@
 Vanilla JS로 개발했던 투두리스트+뽀모도로 타이머 프로젝트를 React+TS로 개선하였습니다.
 
 ## ⚒️ 기술 스택
+
 <div align=center>
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
 <img src="https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=Typescript&logoColor=white">
@@ -11,11 +12,15 @@ Vanilla JS로 개발했던 투두리스트+뽀모도로 타이머 프로젝트�
 </div>
 
 ## 🌎 프로젝트 실행 방법
+
 1. package 설치
+
 ```
 npm install
 ```
+
 2. 프로젝트 실행
+
 ```
 npm run dev
 ```
@@ -24,7 +29,7 @@ npm run dev
 
 - [ ] 배너 레이아웃
   - [x] 로고
-  - [ ] 도움말
+  - [x] 도움말
   - [ ] 뱃지 사용법(보류)
 - [ ] 투두 레이아웃
   - [x] 사용자 이름 받기
@@ -53,3 +58,6 @@ npm run dev
 - [ ] 기타 기능
   - [ ] 다크모드
   - [ ] 뱃지기능
+  - [ ] 에러 핸들링
+  - [ ] 리팩토링 (함수 분리, 컴포넌트 분리, 변수 이름, 함수 이름 등등)
+  - [ ] 스타일 분리할지 고민

@@ -11,7 +11,7 @@ Vanilla JS로 개발했던 투두리스트+뽀모도로 타이머 프로젝트�
 
 > 2022년 11월 (약 3주) <br>
 > 개인 프로젝트 <br>
-> 서비스 링크 : [바로가기]()
+
 
 <img width="600" alt="main" src="https://user-images.githubusercontent.com/85178602/210236089-69482a72-6f5a-4a90-9877-140b3b94b32e.png">
 

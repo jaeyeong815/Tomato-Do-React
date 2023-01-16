@@ -58,7 +58,7 @@ npm run dev
 
 ### 1) TypeScript Type 에러
 
-[포스팅 확인하기]()
+[포스팅 확인하기](https://velog.io/@jaeyeong815/TypeScript-타입-가드로-type-에러-해결하기)
 
 **요약** <br>
 로컬스토리지에 저장 된 할 일을 불러와 화면에 렌더링하는 중 `type` 에러 발생 <br>
